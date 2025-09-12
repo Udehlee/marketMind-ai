@@ -20,3 +20,11 @@ type Insight struct {
 	Message   string
 	Timestamp time.Time
 }
+
+type MarketFeed interface {
+	WatchMarket(symbol string) (MarketInfo, error)
+}
+
+type NewsFeed interface {
+	FetchNews() ([]NewsInfo, error)
+}
