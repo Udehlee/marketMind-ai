@@ -12,6 +12,7 @@ type MarketInfo struct {
 type NewsInfo struct {
 	Headline  string
 	Source    string
+	Content   string
 	Timestamp time.Time
 }
 
