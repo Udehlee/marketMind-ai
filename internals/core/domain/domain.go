@@ -2,30 +2,14 @@ package domain
 
 import "time"
 
-type MarketInfo struct {
-	Symbol    string
-	Price     float32
-	Volume    int64
-	Timestamp time.Time
+type ContentItem struct {
+	Title       string                 `json:"title"`
+	Description string                 `json:"description"`
+	Source      string                 `json:"source"`
+	Timestamp   time.Time              `json:"timestamp"`
+	Metadata    map[string]interface{} `json:"metadata,omitempty"`
 }
 
-type NewsInfo struct {
-	Headline  string
-	Source    string
-	Content   string
-	Timestamp time.Time
-}
-
-type Insight struct {
-	Symbol    string
-	Message   string
-	Timestamp time.Time
-}
-
-type MarketFeed interface {
-	WatchMarket(symbol string) (MarketInfo, error)
-}
-
-type NewsFeed interface {
-	FetchNews() ([]NewsInfo, error)
+type DataSource interface {
+	Fetch() ([]ContentItem, error)
 }
