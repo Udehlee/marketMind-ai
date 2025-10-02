@@ -20,3 +20,12 @@ type FeedResult struct {
 type FeedConfig struct {
 	Feeds []Feed `yaml:"feeds"`
 }
+
+type MarketstackResponse struct {
+	Data []struct {
+		Symbol string  `json:"symbol"`
+		Close  float64 `json:"close"`
+		Volume int64   `json:"volume"`
+		Date   string  `json:"date"`
+	} `json:"data"`
+}
