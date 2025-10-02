@@ -5,11 +5,13 @@ import (
 	"os"
 	"time"
 
+	"github.com/Udehlee/marketMind-ai/internals/core/domain"
 	"github.com/Udehlee/marketMind-ai/internals/models"
 	"github.com/mmcdole/gofeed"
 	"gopkg.in/yaml.v2"
 )
 
+// parseFeeds loads feed config from YAML
 func parseFeeds(path string) (*models.FeedConfig, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -23,6 +25,7 @@ func parseFeeds(path string) (*models.FeedConfig, error) {
 	return &FeedCfg, nil
 }
 
+// fetchFeed fetches and parses a single RSS feed
 func fetchFeed(feed models.Feed) (models.FeedResult, error) {
 	var (
 		client = &http.Client{Timeout: 10 * time.Second}
@@ -43,7 +46,6 @@ func fetchFeed(feed models.Feed) (models.FeedResult, error) {
 			Content:     i.Content,
 			PublishedAt: i.Published,
 		})
-
 	}
 
 	res := models.FeedResult{
@@ -54,6 +56,7 @@ func fetchFeed(feed models.Feed) (models.FeedResult, error) {
 	return res, nil
 }
 
+// FetchAllFeeds fetches all feeds
 func FetchAllFeeds() ([]models.FeedResult, error) {
 	cfg, err := parseFeeds("config/feeds.yaml")
 	if err != nil {
@@ -85,4 +88,24 @@ func FetchAllFeeds() ([]models.FeedResult, error) {
 	}
 
 	return results, nil
+}
+
+// rssToContentItems converts FeedResult into ContentItem
+func rssToContentItems(feedRes models.FeedResult) []domain.ContentItem {
+	items := make([]domain.ContentItem, len(feedRes.Items))
+
+	for i, f := range feedRes.Items {
+		items[i] = domain.ContentItem{
+			Title:       f.Title,
+			Description: f.Content,
+			Source:      feedRes.Feed.Name,
+			Timestamp:   time.Now(),
+			Metadata: map[string]interface{}{
+				"link":        f.Link,
+				"publishedAt": f.PublishedAt,
+				"url":         feedRes.Feed.Url,
+			},
+		}
+	}
+	return items
 }
