@@ -21,11 +21,15 @@ type FeedConfig struct {
 	Feeds []Feed `yaml:"feeds"`
 }
 
-type MarketstackResponse struct {
-	Data []struct {
-		Symbol string  `json:"symbol"`
-		Close  float64 `json:"close"`
-		Volume int64   `json:"volume"`
-		Date   string  `json:"date"`
-	} `json:"data"`
+type AlphaVantageResponse struct {
+	MetaData        map[string]string    `json:"Meta Data"`
+	TimeSeriesDaily map[string]DailyData `json:"Time Series (Daily)"`
+}
+
+type DailyData struct {
+	Open   float64 `json:"1. open,string"`
+	High   float64 `json:"2. high,string"`
+	Low    float64 `json:"3. low,string"`
+	Close  float64 `json:"4. close,string"`
+	Volume int64   `json:"5. volume,string"`
 }
