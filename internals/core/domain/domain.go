@@ -13,3 +13,7 @@ type ContentItem struct {
 type DataSource interface {
 	Fetch() ([]ContentItem, error)
 }
+
+type LLM interface {
+	Summary(items []ContentItem) (string, error)
+}
