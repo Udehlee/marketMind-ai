@@ -4,6 +4,7 @@ go 1.23.4
 
 require (
 	github.com/mmcdole/gofeed v1.3.0
+	github.com/openai/openai-go v1.12.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
@@ -15,6 +16,10 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/stretchr/testify v1.9.0 // indirect
-	golang.org/x/net v0.28.0 // indirect
+	github.com/tidwall/gjson v1.14.4 // indirect
+	github.com/tidwall/match v1.1.1 // indirect
+	github.com/tidwall/pretty v1.2.1 // indirect
+	github.com/tidwall/sjson v1.2.5 // indirect
+	golang.org/x/net v0.34.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 )
