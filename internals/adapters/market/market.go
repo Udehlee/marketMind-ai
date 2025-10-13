@@ -62,6 +62,7 @@ func (m *marketAdapter) Fetch() ([]domain.ContentItem, error) {
 				"date":   date,
 			},
 		})
+		break
 	}
 
 	return items, nil
