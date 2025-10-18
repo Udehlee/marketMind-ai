@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/Udehlee/marketMind-ai/internals/adapters/llm"
 	"github.com/Udehlee/marketMind-ai/internals/adapters/market"
@@ -24,6 +25,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("find out about stock news today: ")
 	input, _ := reader.ReadString('\n')
+	input = strings.TrimSpace(input)
 
 	news := news.NewRssAdapter()
 	market := market.NewMarketAdapter(input)
